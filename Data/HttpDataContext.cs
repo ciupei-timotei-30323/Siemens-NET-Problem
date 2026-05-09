@@ -29,9 +29,9 @@ namespace Siemens.Internship2026.GradeBook.Data
                 PropertyNameCaseInsensitive = true
             };
 
-            var items = JsonSerializer.Deserialize<List<Item>>(json, options);
+            var rootData = JsonSerializer.Deserialize<ItemRootResponse>(json, options);
 
-            return items ?? new List<Item>();
+            return rootData?.Items ?? new List<Item>();
         }
 
         public async Task<Item?> FirstOrDefaultAsync(Func<Item, bool> predicate)
@@ -46,4 +46,9 @@ namespace Siemens.Internship2026.GradeBook.Data
             return items.Where(predicate);
         }
     }
+}
+
+public class ItemRootResponse
+{
+    public List<Item> Items { get; set; }
 }
